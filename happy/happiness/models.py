@@ -17,4 +17,4 @@ class Message(models.Model):
         max_length=50,
         choices=message_choices,
         default=PUBLIC)
-#    author = models.ForeignKey(User)
+    author = models.ForeignKey(User, related_name='messages')
