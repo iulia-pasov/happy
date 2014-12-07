@@ -3,9 +3,9 @@ from django.contrib import admin
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'happy.views.home', name='home'),
+    url(r'^$', 'happiness.views.index', name='home'),
     # url(r'^blog/', include('blog.urls')),
-
+    url(r'^test/$', 'happiness.views.index'),
     url(r'^admin/', include(admin.site.urls)),
-    (r'^accounts/', include('allauth.urls')),
+    url(r'^accounts/', include('allauth.urls')),
 )

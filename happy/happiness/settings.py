@@ -86,9 +86,9 @@ MIDDLEWARE_CLASSES = (
 
 SITE_ID = 2
 
-ROOT_URLCONF = 'happy.urls'
+ROOT_URLCONF = 'happiness.urls'
 
-WSGI_APPLICATION = 'happy.wsgi.application'
+WSGI_APPLICATION = 'happiness.wsgi.application'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
