@@ -18,8 +18,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('message_content', models.TextField()),
                 ('pub_date', models.DateTimeField(verbose_name=b'Date')),
-                ('privacy', models.CharField(max_length=50)),
-                ('author', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('privacy', models.CharField(default=b'pub', max_length=50, choices=[(b'pub', b'Public'), (b'prv', b'Private')])),
+                ('author', models.ForeignKey(related_name='messages', to=settings.AUTH_USER_MODEL)),
             ],
             options={
             },
