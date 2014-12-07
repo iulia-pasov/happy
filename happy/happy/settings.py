@@ -60,13 +60,19 @@ INSTALLED_APPS = (
     'happiness',
 )
 
-SOCIALACCOUNT_PROVIDERS =  {
+# auth and allauth settings
+LOGIN_REDIRECT_URL = '/accounts/email'
+
+SOCIALACCOUNT_QUERY_EMAIL = True
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
         'SCOPE': ['email', 'publish_stream'],
         'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-        'METHOD': 'oauth2',
-        'LOCALE_FUNC': 'path.to.callable',
-        'VERIFIED_EMAIL': False}}
+        'METHOD': 'js_sdk'
+      #  'VERIFIED_EMAIL': False
+      }}
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -78,25 +84,11 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-SITE_ID = 1
+SITE_ID = 2
 
 ROOT_URLCONF = 'happy.urls'
 
 WSGI_APPLICATION = 'happy.wsgi.application'
-
-# Database
-# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'happy',
-        'USER': 'Iulia',
-        'PASSWORD': 'iulia',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -116,3 +108,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#import local settings
+try:
+    from local_settings import *
+except ImportError:
+    pass
