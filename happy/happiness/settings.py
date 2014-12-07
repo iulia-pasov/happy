@@ -58,6 +58,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'happiness',
+    'rest_framework',
 )
 
 # auth and allauth settings
