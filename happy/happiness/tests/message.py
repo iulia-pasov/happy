@@ -16,17 +16,21 @@ class MessageViewTests(TestCase):
         Message.messages.all().delete()
 
 
-    def test_message_view(self):
+    def test_private_message_view(self):
         '''
         Tests for the message view
         '''
         message_prv = MessageFactory(privacy='prv')
-        message_pub = MessageFactory(privacy='pub')
 
         request = self.client.get('/messages/')
-        messages = request.data['results']
-        for msg in messages:
-            if msg['privacy'] == 'prv':
-                self.assertEqual(msg['author'], 'anonymous')
-            else:
-                self.assertIsNotNone(msg['author']['username'])
+        message = request.data['results'][0]
+        self.assertEqual(message['author'], 'anonymous')
+
+    def test_public_message_view(self):
+        """
+        Test for public message
+        """ 
+        message_pub = MessageFactory(privacy='pub')
+        request = self.client.get('/messages/')
+        message = request.data['results'][0]
+        self.assertIsNotNone(message['author']['username'])
