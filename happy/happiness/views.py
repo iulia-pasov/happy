@@ -1,18 +1,19 @@
 from django.contrib.auth.models import User
-from django.shortcuts import render, render_to_response
 
-from rest_framework import viewsets
+from rest_framework import viewsets, generics, permissions
 
 from happiness.models import Message
 from happiness.serializers import MessageSerializer, UserSerializer
 
 
-class MessageViewSet(viewsets.ReadOnlyModelViewSet):
+class MessageViewSet(viewsets.ModelViewSet):
     """
     A view for all the messages
     """
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = Message.messages.all()
     serializer_class = MessageSerializer
+
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     """
