@@ -21,6 +21,7 @@ class MessageViewTests(TestCase):
             'message_content': 'Everybody loves Iulia'
         }
         self.client = APIClient()
+        user = UserFactory()
 
     def tearDown(self):
         Message.messages.all().delete()
@@ -30,7 +31,7 @@ class MessageViewTests(TestCase):
         '''
         Tests for the message view
         '''
-        messagePrv = MessageFactory(privacy='prv')
+        message_prv = MessageFactory(privacy='prv')
 
         request = self.client.get('/messages/')
         message = request.data['results'][0]
@@ -40,7 +41,7 @@ class MessageViewTests(TestCase):
         """
         Test for public message
         """
-        messagePub = MessageFactory(privacy='pub')
+        message_pub = MessageFactory(privacy='pub')
         request = self.client.get('/messages/')
         message = request.data['results'][0]
         self.assertNotEqual(message['author'], 'anonymous')
@@ -50,11 +51,7 @@ class MessageViewTests(TestCase):
         """
         Test if an authenticated user can post a message
         """
-        #user = User.objects.create_user( 
-        #        username='mytest', email='test@test.com', password='secret')
-        user = UserFactory()
-        self.client.force_authenticate(user=user)
-        #self.client.login(username='mytest', password='secret')
+        self.client.force_authenticate(user=self.user)
 
         response = self.client.post('/messages/', self.messageContent)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -64,11 +61,6 @@ class MessageViewTests(TestCase):
         self.assertEqual(message['privacy'], 'pub')
         self.assertEqual(message['message_content'], 'Everybody loves Iulia')
 
-    def test_edit_message_as_author(self):
-        """
-        Test if an authenticated user can edit his own message
-        """
-
     def test_post_message_as_anon(self):
         """
         Test if an anonymous user cannot post a message
@@ -77,6 +69,11 @@ class MessageViewTests(TestCase):
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertEqual(self.client.get('/messages/').data['count'], 0)
  
+    def test_edit_message_as_author(self):
+        """
+        Test if an authenticated user can edit his own message
+        """
+
     def test_edit_message_as_anon(self):
         """
         Test if an anonymous user cannot edit a message

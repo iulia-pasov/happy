@@ -31,14 +31,19 @@ class MessageSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Message
         fields = ('author', 'pub_date', 'privacy', 'message_content')
+        order_by = 'pub_date'
         depth = 2
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-    '''Simple message serializer
-    '''
-    messages = serializers.PrimaryKeyRelatedField(
-            many=True, queryset=Message.messages.all())
+    """
+    Simple user serializer
+    """
+    messages = serializers.HyperlinkedRelatedField(
+            many=True,
+            read_only=True,
+            view_name='message-detail'
+            )
     
     
     class Meta:
