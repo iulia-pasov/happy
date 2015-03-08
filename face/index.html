@@ -30,7 +30,7 @@
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-<div class="container theme-showcase" role="main">
+<div class="container theme-showcase" role="main" ng-controller="newMessageController as vm">
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-8">
@@ -38,17 +38,17 @@
             <fieldset>
             <div class="form-group">
                 <label for="content">Message</label>
-                <textarea ng-model="message.content" id="content" class="form-control" required></textarea>
+                <textarea ng-model="vm.message.content" id="content" class="form-control" required></textarea>
             </div>
             <div class="form-group">
                 <label for="privacy">Select Privacy</label>
-                <select ng-model="message.privacy" id="privacy" class="form-control" required>
+                <select ng-model="vm.message.privacy" id="privacy" class="form-control" required>
                     <option value="pub">Public</option>
                     <option value="prv">Private</option>
                 </select>
             </div>
             </fieldset>
-            <button type="submit" class="btn btn-default" ng-disabled="!messageform.$valid" ng-click="submit()">Send</button>
+            <button type="submit" class="btn btn-default" ng-disabled="!messageform.$valid" ng-click="vm.send()">Send</button>
         </form>
         <message-preview></message-preview>
         <list-messages></list-messages>

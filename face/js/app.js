@@ -9,7 +9,18 @@
             templateUrl: 'preview.html'
         };
     });
-    app.controller('ListController', function($scope, $http) {
+    app.controller('newMessageController', ['$http', function($http) {
+        var vm = this;
+        vm.message = {};
+        vm.send = function() {
+            console.log(vm.message);
+            $http.post('http://happy.local/messages/', vm.message).then(function(data) {
+             });
+             vm.message = {};
+
+        };
+    }]);
+    app.controller('ListController', function($http) {
         var vm = this;
         $http.get('http://happy.local/messages/').then(function(data) {
             vm.messages = data.data.results;
@@ -23,4 +34,5 @@
             controllerAs: 'list'
         };
     });
+
 })();
