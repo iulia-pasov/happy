@@ -11,7 +11,7 @@ class MessageViewSet(viewsets.ModelViewSet):
     A view for all the messages
     """
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    queryset = Message.messages.all()
+    queryset = Message.messages.order_by('-pub_date')
     serializer_class = MessageSerializer
 
 
