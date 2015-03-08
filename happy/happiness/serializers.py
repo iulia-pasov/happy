@@ -30,7 +30,7 @@ class MessageSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Message
-        fields = ('author', 'pub_date', 'privacy', 'message_content')
+        fields = ('author', 'pub_date', 'privacy', 'content')
         order_by = 'pub_date'
         depth = 2
 

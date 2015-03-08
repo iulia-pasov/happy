@@ -11,7 +11,7 @@ class Message(models.Model):
         (PUBLIC, 'Public'),
         (PRIVATE, 'Private'),
     )
-    message_content = models.TextField()
+    content = models.TextField()
     pub_date = models.DateTimeField('Date', auto_now_add=True)
     privacy = models.CharField(
         max_length=50,
