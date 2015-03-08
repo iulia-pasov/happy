@@ -51,7 +51,17 @@
             <button type="submit" class="btn btn-default" ng-disabled="!messageform.$valid" ng-click="vm.send()">Send</button>
         </form>
         <message-preview></message-preview>
-        <list-messages></list-messages>
+        <!--list-messages></list-messages-->
+        <div ng-repeat="msg in vm.messages">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{msg.author}}</h3>
+                </div>
+                <div class="panel-body">
+                    <p>{{msg.content}}</p>
+                </div>
+            </div>
+        </div>
         </div>
     </div>
 </div>
